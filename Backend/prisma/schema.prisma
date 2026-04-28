@@ -1,0 +1,116 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// Define your data models here and run `prisma generate` to get the Prisma Client API in your generated folder.
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String?
+  name     String?
+  pictures String?
+  role     String  @default("user")
+  enabled  Boolean @default(true)
+  address  String?
+
+  orders    Order[]
+  carts     Cart[]
+  createdAt DateTime @default(now()) // Automatically set the creation timestamp
+  updatedAt DateTime @updatedAt // Automatically update the timestamp on every update
+}
+
+// Product model
+
+model Product {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+  price       Float
+  sold        Int     @default(0)
+  quantity    Int
+  OrderItem ProductOnOrder[] // Have 1 product with many orders// 1สินค้า มีหลายออเดอร์
+  cartItem  ProductOnCart[] // Have 1 product with many carts// 1สินค้า มีหลายตะกร้า
+  images    Image[] // Have 1 product with many images// 1สินค้า มีหลายรูปภาพ
+  createdAt DateTime         @default(now()) // Automatically set the creation timestamp
+  updatedAt DateTime         @updatedAt // Automatically update the timestamp on every update
+}
+
+model Order {
+  id          Int              @id @default(autoincrement())
+  cartTotal   Float
+  orderStatus String           @default("Not Processed")
+  userId      Int
+  product     ProductOnOrder[] // Have 1 order with many products// 1ออเดอร์ มีหลายสินค้า
+
+  orderBy   User @relation(fields: [orderById], references: [id])
+  orderById Int
+
+  createdAt DateTime @default(now()) // Automatically set the creation timestamp
+  updatedAt DateTime @updatedAt // Automatically update the timestamp on every update
+}
+
+// ProductOnOrder model สำหรับเชื่อมความสัมพันธ์ระหว่าง Product และ Order แบบ many-to-many โดยมีข้อมูลเพิ่มเติม เช่น quantity และ totalPrice
+
+model ProductOnOrder {
+  id        Int     @id @default(autoincrement())
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   Int
+  count     Int
+  price     Float
+}
+
+model Category {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+
+  createdAt DateTime @default(now()) // Automatically set the creation timestamp
+  updatedAt DateTime @updatedAt // Automatically update the timestamp on every update
+}
+
+model Cart {
+  id         Int             @id @default(autoincrement())
+  products   ProductOnCart[] // Have 1 cart with many products// 1ตะกร้า มีหลายสินค้า
+  cartTotal Float
+
+  orderBy   User @relation(fields: [orderById], references: [id])
+  orderById Int
+
+  createdAt DateTime @default(now()) // Automatically set the creation timestamp
+  updatedAt DateTime @updatedAt // Automatically update the timestamp on every update
+}
+
+model ProductOnCart {
+  id        Int     @id @default(autoincrement())
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  cartId    Int
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  count     Int
+  price     Float
+}
+
+model Image {
+  id         Int      @id @default(autoincrement())
+  assetId    String
+  publicId   String
+  url        String
+  secure_url String
+  createdAt  DateTime @default(now()) // Automatically set the creation timestamp
+  updatedAt  DateTime @updatedAt // Automatically update the timestamp on every update
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+}

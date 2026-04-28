@@ -2,7 +2,7 @@
 
 > **อัปเดตล่าสุด:** 28 เมษายน 2026  
 > **Author:** [ddshop97026564@gmail.com](mailto:ddshop97026564@gmail.com) | [Katdev55](https://github.com/KatDev55)  
-> **ช่วงเวลาแก้ไขงาน:** 2:01 PM
+> **ช่วงเวลาแก้ไขงาน:** 10:54 PM
 
 ---
 
@@ -12,59 +12,20 @@
 ## Update Feature :
 
 **What Was Added:** 
-+ **feat(Controller):** SetUp Create Endpoint category: **List , Create , Remove**
-+ **refactor(Router):** SetUp Elements at Router Method **(GET , POST , DELETE)**
++ **chore(npm)**: npm install prisma and prisma/clinet and dotenv
++ **feat(prisma)**: `prisma.config.ts` for manage source url .env
++ **feat(prisma)**:`schema.prisma` for Structure workspace for managing `user, products , Order , category , Cart , Product Image`
++ **feat(prisma)**: `Backend/config/prisma` for Connect Database with prisma
++ **feat**: New file `Backend/.gitignore` 
++ **refa(ignore)**: `.gitignore` ignore **env, env.local , env.development , /generated/prisma**
 
 ---
 **Related files:** 
-+ `/Controllers/category.js`
-+ `/Router/category.js`
++ `package.json`
++ `Backend/Config/prisma.js`
++ `Backend/prisma/schema.prisma`
++ `Backend/prisma.config.ts`
++ `.gitignore`
 
 
 
-
-### Feature(`/Controllers/category.js`):
-```js
-exports.create = async (req, res) => {
-    try{
-        res.send('Create category')
-
-    }catch(err){
-        console.log(err)
-        res.status(500).json({message: "Server Error"})
-    }
-}
-
-
-exports.list = async (req, res) => {
-    try{
-        res.send('List categories')
-
-    }catch(err){
-        console.log(err)
-        res.status(500).json({message: "Server Error"})
-    }
-}
-
-
-exports.remove = async (req, res) => {
-    try{
-        res.send('Remove category')
-        console.log(req.params.id)
-
-    }catch(err){
-        console.log(err)
-        res.status(500).json({message: "Server Error"})
-    }
-}
-```
-
-###  Refactor(`/Router/auth.js`):
-```js
-const { create, list, remove } = require('../Controllers/category');
-
-
-router.post('/category', create)
-router.get('/category', list)
-router.delete('/category/:id', remove)
-```
