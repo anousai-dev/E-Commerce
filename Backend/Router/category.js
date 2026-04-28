@@ -2,10 +2,10 @@
 const express = require('express');
 const router = express.Router();
 
-
-router.get('/category', (req, res) => {
-    res.send('Category');
-});
+// @ENDPOINT http://localhost:8080/api/category
+router.get('/category', )
+router.post('/category', )
+router.delete('/category/:id', )
 
 
 
