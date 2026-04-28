@@ -1,11 +1,12 @@
 // Import
 const express = require('express');
 const router = express.Router();
+const { create, list, remove } = require('../Controllers/category');
 
 // @ENDPOINT http://localhost:8080/api/category
-router.get('/category', )
-router.post('/category', )
-router.delete('/category/:id', )
+router.post('/category', create)
+router.get('/category', list)
+router.delete('/category/:id', remove)
 
 
 
