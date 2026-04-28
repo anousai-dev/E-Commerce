@@ -1,22 +1,36 @@
 # 🛒 E-Commerce — Backend
 
-> **อัปเดตล่าสุด:** 27 เมษายน 2026  
-> **Author:** [ddshop97026564@gmail.com](mailto:anousai.dev@gmail.com) | [Katdev55](https://github.com/KatDev55)  
-
-> ⚠️ **หมายเหตุสำหรับทีม:** Right Now I have Rename from **Server to Backend**
----
-
-## Refector:
-`server.js`: 
-+ Change import file simple, by Change **readdirSync** from ('fs') by node for use function for reading folder
-+ Change port from 3001 to 8080
-+ use readdirSync then map flie for use path and import flie automatic
----
-
-## Feature:
-+ Add `categort.js` In `Backend/Router`
+> **อัปเดตล่าสุด:** 28 เมษายน 2026  
+> **Author:** [ddshop97026564@gmail.com](mailto:ddshop97026564@gmail.com) | [Katdev55](https://github.com/KatDev55)  
+> **ช่วงเวลาแก้ไขงาน:** 11:19 AM
 
 ---
-## Chore:
-+ npm i core express morgan nodemon
-+ config: `package.json` in script I have add **"start": "nodemon server.js"**
+
+<!-- > ⚠️ **หมายเหตุสำหรับทีม:** Right Now I have Rename from **Server to Backend**
+--- -->
+
+## Update Feature :
+
+**What Was Added:** Config Method Register **[GET] to [POST]** and add **feat(Login)** 
+
+**Related files:** `/Controllers/auth.js` , `/Router/auth.js`
+###  `/Controllers/auth.js`:
+```js
+// Login Controller
+    exports.login = (req, res) => {
+        res.send("Login endpoint Controller");
+    };
+```
+
+###  `/Router/auth.js`:
+```js
+// Resgister
+router.post('/register', register);
+
+// Login
+router.post('/login', login);
+
+```
+
+
+---
